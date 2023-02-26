@@ -10,7 +10,9 @@ while(True):
     cv2.imwrite('img.png', frame)
     try:
         face_analysis = DeepFace.analyze(img_path = "img.png")
-    except:
+        print(face_analysis[0]['dominant_emotion'])
+    except ValueError as e:
+        print(e)
         pass
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
