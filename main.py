@@ -29,17 +29,17 @@ def start():
     img = ImageTk.PhotoImage(Image.open(file_name))
     imgLabel = Label(frame, image = img, background="#D3D3D3")
     imgLabel.pack()
-
-    global t
-    t = Text(frame, width = 100, height = 10,  background="#D3D3D3")
-    t.propagate(False)
-    t.pack()
     
+    global t
+    t = Text(frame, width = 120, height = 10,  background="#D3D3D3", state=DISABLED)
+    t.propagate(False)
     #textLabel = Label(t, font=('Yu Gothic UI', 13), text="", background="#D3D3D3", fg='#702963')
     #textLabel.pack(side='left')  
     textScrollbar = Scrollbar(t, orient='vertical')
-    textScrollbar.config(command=t.yview)
     textScrollbar.pack(side='right', fill=Y)
+    t.pack()
+    t.config(yscrollcommand=textScrollbar.set)
+    textScrollbar.config(command = t.yview)
     text = "stand still I'm capturing your emotions!"
     #userLabel = Label(t, text='', fg='#008000',font=('Yu Gothic UI', 13), background="#D3D3D3")
     thing = print_text(text, win, '#702963', 'left')
@@ -80,12 +80,13 @@ def start():
     
     inputFrame = Frame(frame)
     inputFrame.pack()
-    userInputBox = Entry(inputFrame, font=('Yu Gothic UI', 10))
-    userInputBox.pack(pady=10, ipadx=300, ipady=5, side='left')
-    submitButton = Button(inputFrame, text='🐈‍', command=lambda: submit_input(userInputBox, win))
-    submitButton.pack(side='right', padx=5)
+    userInputBox = Entry(inputFrame, font=('Yu Gothic UI', 13))
+    userInputBox.pack(pady=10, ipadx=320, ipady=5, side='left')
     resetButton = Button(inputFrame,text="RESET", command=lambda: reset(win))
-    resetButton.pack()
+    resetButton.pack(side='right')
+    submitButton = Button(inputFrame, text='🐈‍', command=lambda: submit_input(userInputBox, win))
+    submitButton.pack(side='right', padx=5,ipadx=30)
+
 
     win.mainloop()
 
@@ -112,6 +113,7 @@ def print_text(text, win, color, ore=None):
         label['text'] += letter
         win.update()
         sleep(0.05)
+
     return label
 
 def reset(win):
