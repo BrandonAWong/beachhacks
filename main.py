@@ -31,8 +31,10 @@ def start():
     imgLabel.pack()
 
     global t
-    t = Text(frame, width = 50, height = 10,  background="#D3D3D3")
+    t = Text(frame, width = 100, height = 10,  background="#D3D3D3")
+    t.propagate(False)
     t.pack()
+    
     #textLabel = Label(t, font=('Yu Gothic UI', 13), text="", background="#D3D3D3", fg='#702963')
     #textLabel.pack(side='left')  
     textScrollbar = Scrollbar(t, orient='vertical')
@@ -82,6 +84,8 @@ def start():
     userInputBox.pack(pady=10, ipadx=300, ipady=5, side='left')
     submitButton = Button(inputFrame, text='🐈‍', command=lambda: submit_input(userInputBox, win))
     submitButton.pack(side='right', padx=5)
+    resetButton = Button(inputFrame,text="RESET", command=lambda: reset(win))
+    resetButton.pack()
 
     win.mainloop()
 
@@ -110,6 +114,9 @@ def print_text(text, win, color, ore=None):
         sleep(0.05)
     return label
 
+def reset(win):
+    win.destroy()
+    start()
 
 if __name__ == "__main__":
     emotion = Emotion()
