@@ -11,11 +11,10 @@ def main():
 
     # Define the window layout
     layout = [
-        [sg.Text("OpenCV Demo", size=(60, 1), justification="center")],
+        [sg.Text("OpenCV Demo", size=(225, 1), justification="center")],
         [sg.Image(filename="", key="-IMAGE-")],
-        [sg.Radio("None", "Radio", True, size=(10, 1))],
         [
-            sg.Radio("cat number", "Radio", size=(10, 1), key="-THRESH-"),
+            sg.Radio("cat number", "Radio", True, size=(10, 1), key="-THRESH-"),
             sg.Slider(
                 (0, 3),
                 0,
