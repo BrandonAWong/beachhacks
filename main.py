@@ -1,36 +1,41 @@
-from Emotion import Emotion
+# from Emotion import Emotion
 from tkinter import *
+import PySimpleGUI as sg
 from PIL import ImageTk, Image
 from os import getcwd
 from time import sleep
-from google.cloud import dialogflow_v2 as dialogflow
-from google.api_core.exceptions import InvalidArgument
+# from google.cloud import dialogflow_v2 as dialogflow
+# from google.api_core.exceptions import InvalidArgument
 
-DIALOGFLOW_PROJECT_ID = 'beachhacks-378923'
-DIALOGFLOW_LANGUAGE = "en-US"
-SESSION_ID = "123456789"
-sessionClient = dialogflow.SessionsClient()
-session = sessionClient.session_path(DIALOGFLOW_PROJECT_ID, SESSION_ID)
+# DIALOGFLOW_PROJECT_ID = 'beachhacks-378923'
+# DIALOGFLOW_LANGUAGE = "en-US"
+# SESSION_ID = "123456789"
+# sessionClient = dialogflow.SessionsClient()
+# session = sessionClient.session_path(DIALOGFLOW_PROJECT_ID, SESSION_ID)
 
 def start():
-    wd = f'{getcwd()}\\catt'
+
+
+#__________________________________________________________________________________________________________________________________________
+    wd = f'{getcwd()}/catt'
     win = Tk()
     win.configure(background='#D3D3D3')
     win.title('🐈 Bot')
     win.geometry("1920x1080")
-    win.iconbitmap(f'{wd}\\cat_icon.ico')
+    win.iconbitmap(f'{wd}cat_icon.ico')
 
     frame = Frame(win, width=600, height=400, background="#D3D3D3")
     frame.pack()
     frame.place(anchor='center', relx=0.5, rely=0.5)
 
     
-    file_name = f'{wd}\\loading_cat.bmp'
+    file_name = f'{wd}/loading_cat.bmp'
     img = ImageTk.PhotoImage(Image.open(file_name))
     imgLabel = Label(frame, image = img, background="#D3D3D3")
     imgLabel.pack()
 
     t = Text(frame, width = 50, height = 10,  background="#D3D3D3")
+    t.propagate(False)
     t.pack()
     textLabel = Label(t, font=('Yu Gothic UI', 13), text="", background="#D3D3D3", fg='#702963')
     textLabel.pack()  
@@ -42,7 +47,7 @@ def start():
     userLabel = Label(t, text='', fg='#008000',font=('Yu Gothic UI', 13), background="#D3D3D3")
     print_text(text, textLabel, win)
 
-    emotion.capture_emotion()
+    # emotion.capture_emotion()
     
     img = ImageTk.PhotoImage(Image.open('img.png'))
     imgLabel['image'] = img
@@ -51,25 +56,26 @@ def start():
     print_text(text, textLabel, win)
     sleep(3)
 
-    match emotion.emotion:
-        case('happy'):
-            file_name = f"{wd}\\happy_cat.bmp"
-        case('sad'):
-            file_name = f"{wd}\\sad_cat.bmp"
-        case('angry'):
-            file_name = f"{wd}\\angry_cat.bmp"
-        case('neutral'):
-            file_name = f"{wd}\\neutral_cat.bmp"
-        case('disgusted'):
-            file_name = f"{wd}\\disgusted_cat.bmp"
-        case('fear'):
-            file_name = f"{wd}\\fear_cat.bmp"
-        case('surprise'):
-            file_name = f"{wd}\\suprise_cat.bmp"
+    # match emotion.emotion:
+    #     case('happy'):
+    #         file_name = f"{wd}\\happy_cat.bmp"
+    #     case('sad'):
+    #         file_name = f"{wd}\\sad_cat.bmp"
+    #     case('angry'):
+    #         file_name = f"{wd}\\angry_cat.bmp"
+    #     case('neutral'):
+    #         file_name = f"{wd}\\neutral_cat.bmp"
+    #     case('disgusted'):
+    #         file_name = f"{wd}\\disgusted_cat.bmp"
+    #     case('fear'):
+    #         file_name = f"{wd}\\fear_cat.bmp"
+    #     case('surprise'):
+    #         file_name = f"{wd}\\suprise_cat.bmp"
+    file_name = f"{wd}/happy_cat.bmp"
 
     img = ImageTk.PhotoImage(Image.open(file_name))
     imgLabel['image'] = img
-    text = f"i'm {emotion.emotion}"
+    # text = f"i'm {emotion.emotion}"
     win.update()
     textLabel['text'] = ''
     dialog = get_dialog(text)
@@ -85,13 +91,14 @@ def start():
     win.mainloop()
 
 def get_dialog(text):
-    textInput = dialogflow.types.TextInput(text=text, language_code=DIALOGFLOW_LANGUAGE)
-    query = dialogflow.types.QueryInput(text=textInput)
-    try:
-        response = sessionClient.detect_intent(session=session, query_input=query)
-    except InvalidArgument:
-        raise 
-    return response.query_result.fulfillment_text
+    # textInput = dialogflow.types.TextInput(text=text, language_code=DIALOGFLOW_LANGUAGE)
+    # query = dialogflow.types.QueryInput(text=textInput)
+    # try:
+    #     response = sessionClient.detect_intent(session=session, query_input=query)
+    # except InvalidArgument:
+    #     raise 
+    # return response.query_result.fulfillment_text
+    return ("fuck you\n")
 
 def submit_input(userInputBox, textLabel, win):
      userInput = userInputBox.get()
@@ -109,6 +116,6 @@ def print_text(text, label, win):
 
 
 if __name__ == "__main__":
-    emotion = Emotion()
+    # emotion = Emotion()
     #add button make text nicer and stuff and make a go go button at very beginning
     start()
