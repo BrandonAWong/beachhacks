@@ -11,7 +11,7 @@ DIALOGFLOW_LANGUAGE = "en-US"
 SESSION_ID = "123456789"
 sessionClient = dialogflow.SessionsClient()
 session = sessionClient.session_path(DIALOGFLOW_PROJECT_ID, SESSION_ID)
-
+sasageyo = 0
 def start():
     wd = f'{getcwd()}\\catt'
     win = Tk()
@@ -122,5 +122,4 @@ def reset(win):
 
 if __name__ == "__main__":
     emotion = Emotion()
-    #add button make text nicer and stuff and make a go go button at very beginning
     start()
