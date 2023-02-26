@@ -30,25 +30,25 @@ def start():
     imgLabel = Label(frame, image = img, background="#D3D3D3")
     imgLabel.pack()
 
+    global t
     t = Text(frame, width = 50, height = 10,  background="#D3D3D3")
     t.pack()
-    textLabel = Label(t, font=('Yu Gothic UI', 13), text="", background="#D3D3D3", fg='#702963')
-    textLabel.pack()  
+    #textLabel = Label(t, font=('Yu Gothic UI', 13), text="", background="#D3D3D3", fg='#702963')
+    #textLabel.pack(side='left')  
     textScrollbar = Scrollbar(t, orient='vertical')
     textScrollbar.config(command=t.yview)
     textScrollbar.pack(side='right', fill=Y)
     text = "stand still I'm capturing your emotions!"
-    global userLabel
-    userLabel = Label(t, text='', fg='#008000',font=('Yu Gothic UI', 13), background="#D3D3D3")
-    print_text(text, textLabel, win)
+    #userLabel = Label(t, text='', fg='#008000',font=('Yu Gothic UI', 13), background="#D3D3D3")
+    thing = print_text(text, win, '#702963', 'left')
 
     emotion.capture_emotion()
-    
+    thing.pack_forget()
     img = ImageTk.PhotoImage(Image.open('img.png'))
     imgLabel['image'] = img
-    textLabel['text'] = ''
+    #textLabel['text'] = ''
     text = 'picking the perfect emotion...'
-    print_text(text, textLabel, win)
+    otherThing = print_text(text, win,'#702963', 'left')
     sleep(3)
 
     match emotion.emotion:
@@ -70,16 +70,17 @@ def start():
     img = ImageTk.PhotoImage(Image.open(file_name))
     imgLabel['image'] = img
     text = f"i'm {emotion.emotion}"
+    otherThing.pack_forget()
     win.update()
-    textLabel['text'] = ''
+    #textLabel['text'] = ''
     dialog = get_dialog(text)
-    print(print_text(dialog, textLabel, win))
+    print_text(dialog, win, '#702963')
     
     inputFrame = Frame(frame)
     inputFrame.pack()
     userInputBox = Entry(inputFrame, font=('Yu Gothic UI', 10))
     userInputBox.pack(pady=10, ipadx=300, ipady=5, side='left')
-    submitButton = Button(inputFrame, text='🐈‍', command=lambda: submit_input(userInputBox, textLabel, win))
+    submitButton = Button(inputFrame, text='🐈‍', command=lambda: submit_input(userInputBox, win))
     submitButton.pack(side='right', padx=5)
 
     win.mainloop()
@@ -93,19 +94,21 @@ def get_dialog(text):
         raise 
     return response.query_result.fulfillment_text
 
-def submit_input(userInputBox, textLabel, win):
+def submit_input(userInputBox, win):
      userInput = userInputBox.get()
      userInputBox.delete(0, END)
-     print_text(userInput, userLabel, win)
+     print_text(userInput, win, '#008000')
      dialog = get_dialog(userInput)
-     print_text(dialog, textLabel, win)
+     print_text(dialog, win, '#702963')
 
-def print_text(text, label, win):
-    label.pack()
+def print_text(text, win, color, ore=None):
+    label = Label(t, font=('Yu Gothic UI', 13), text="", background="#D3D3D3", fg=color)
+    label.pack(side=ore)
     for letter in text:
         label['text'] += letter
         win.update()
         sleep(0.05)
+    return label
 
 
 if __name__ == "__main__":
