@@ -13,7 +13,6 @@ file_name=f"catt/cat{number}.jpeg"
 
 # Create an instance of tkinter window
 win = Tk()
-
 # Define the geometry of the window
 win.geometry("700x500")
 
